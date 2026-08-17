@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Standard of Care</title>
+<meta name="description" content="A mundane checkup, and the fortune you unwittingly inherited.">
+<meta property="og:title" content="Standard of Care">
+<meta property="og:description" content="A mundane checkup, and the fortune you unwittingly inherited.">
+<meta property="og:type" content="article">
+<meta property="og:image" content="images/og-card.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#fbf4e6">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#fbf4e6; --ink:#2f2a20; --ink-soft:#6b6353; --ink-faint:#9a9280;
+    --rule:#ddd2ba; --accent:#8c3e24;
+    --serif:"EB Garamond",Georgia,serif; --sans:"Inter",system-ui,sans-serif;
+    --measure:34rem;
+    --dim:rgba(28,22,14,.66);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);
+    font-size:17px;line-height:1.7;-webkit-font-smoothing:antialiased}
+  img{max-width:100%;display:block}
+  .col{max-width:var(--measure);margin:0 auto;padding:0 1.5rem}
+  .skip{position:absolute;left:-9999px}
+  .skip:focus{left:1rem;top:1rem;background:var(--ink);color:var(--paper);padding:.6rem 1rem;z-index:99}
+
+  /* ---------- hero ---------- */
+  /* ---------- hero: full-bleed image with a frosted panel ---------- */
+  .hero{position:relative;min-height:100svh;display:flex;align-items:center;
+    justify-content:center;overflow:hidden;padding:0}
+  .hero-media{position:absolute;inset:0}
+  .hero-media img{width:100%;height:100%;object-fit:cover;display:block}
+  .hero-frost{position:absolute;inset:0;z-index:1;
+    background:rgba(251,244,230,.44);
+    -webkit-backdrop-filter:blur(20px) saturate(112%) brightness(1.05);
+    backdrop-filter:blur(20px) saturate(112%) brightness(1.05)}
+  .hero-frost::after{content:"";position:absolute;inset:0;
+    background:radial-gradient(120% 92% at 50% 46%,rgba(28,22,14,0) 46%,rgba(28,22,14,.20) 100%)}
+  @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+    .hero-frost{background:rgba(251,244,230,.86)}
+  }
+
+  .hero-panel{position:relative;z-index:2;max-width:34rem;margin:0 1.5rem;
+    padding:0 1rem;text-align:center}
+  .hero h1{font-family:var(--serif);font-size:clamp(2.5rem,6vw,4rem);line-height:1.02;
+    font-weight:400;margin:0 0 1.1rem;letter-spacing:-.018em;color:var(--ink)}
+  .hero .standfirst{font-family:var(--serif);font-size:1.24rem;line-height:1.5;
+    color:var(--ink-soft);margin:0}
+
+  .scrollcue{position:absolute;z-index:2;left:50%;transform:translateX(-50%);bottom:2rem;
+    font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;margin:0;
+    color:rgba(47,42,32,.78);padding:.42rem .95rem;border-radius:999px;
+    background:rgba(251,244,230,.6);
+    -webkit-backdrop-filter:blur(14px) saturate(120%);
+    backdrop-filter:blur(14px) saturate(120%);
+    border:1px solid rgba(255,255,255,.5);
+    animation:cue 2.8s ease-in-out infinite}
+  @keyframes cue{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(4px)}}
+  @media (prefers-reduced-motion:reduce){.scrollcue{animation:none}}
+
+  .beat{font-family:var(--serif);font-size:1.25rem;line-height:1.65;color:var(--ink-soft);
+    margin:5rem auto 0;max-width:var(--measure);padding:0 1.5rem}
+
+  /* ---------- two-column stage layout ---------- */
+  .walk{margin-top:4rem}
+  .walk-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,30rem);
+    gap:3rem;max-width:82rem;margin:0 auto;padding:0 2rem;align-items:start}
+
+  .stage{position:sticky;top:0;height:100vh;display:flex;align-items:center}
+  .stage-inner{position:relative;width:100%;overflow:hidden;border-radius:14px;
+    box-shadow:0 10px 34px -16px rgba(28,22,14,.4)}
+  .stage-inner img{width:100%;display:block}
+
+  /* soft spotlight: a radial-gradient veil that feathers into the dark */
+  .veil{position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .6s ease}
+  .veil.on{opacity:1}
+  /* ---------- entries ---------- */
+  .entry{min-height:88vh;display:flex;flex-direction:column;justify-content:center;padding:3rem 0}
+  .entry-station{font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--ink-faint);margin:0 0 .5rem}
+  .entry h2{font-family:var(--serif);font-weight:500;font-size:2rem;line-height:1.18;margin:0 0 1.4rem}
+  .entry figure{margin:0 0 1.6rem;display:none}
+  .entry figure img{width:100%}
+  blockquote{font-family:var(--serif);font-size:1.24rem;line-height:1.58;
+    margin:0 -1.7rem 1.3rem;padding:1.5rem 1.7rem;border-radius:18px;
+    background:rgba(255,255,255,.35);
+    -webkit-backdrop-filter:blur(16px) saturate(125%);
+    backdrop-filter:blur(16px) saturate(125%);
+    border:1px solid rgba(255,255,255,.6);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.5)}
+  @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+    blockquote{background:rgba(255,255,255,.6)}
+  }
+  .attrib{font-size:.95rem;line-height:1.65;color:var(--ink-soft);margin:0}
+  .attrib a{color:var(--accent);text-decoration:none;border-bottom:1px solid #e0c4b8}
+  .attrib a:hover{border-bottom-color:var(--accent)}
+  .note{font-size:.95rem;line-height:1.65;color:var(--ink-soft);margin:.7rem 0 0}
+  .note a{color:var(--accent);text-decoration:none;border-bottom:1px solid #e0c4b8}
+  .note-d{margin:.7rem 0 0}
+  .note-d summary{display:inline-block;font-size:.72rem;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--ink-soft);cursor:pointer;list-style:none;
+    padding:.32rem .8rem;border:1px solid var(--rule);border-radius:999px;
+    transition:background .2s ease,border-color .2s ease}
+  .note-d summary:hover{background:rgba(0,0,0,.035);border-color:var(--ink-faint)}
+  .note-d summary::before{content:"+ "}
+  .note-d[open] summary::before{content:"\u2212 "}
+  .note-d summary::-webkit-details-marker{display:none}
+  .tk{background:#f6e2b8;color:#6a4a10;padding:.15em .45em;border-radius:2px;
+    font-family:var(--sans);font-size:.8em;letter-spacing:.03em}
+
+  .closing{margin:8rem auto 0;max-width:var(--measure);padding:0 1.5rem}
+  .closing p{font-family:var(--serif);font-size:1.25rem;line-height:1.65;margin:0 0 1.4rem}
+  .sources{margin:6rem auto 0;max-width:var(--measure);padding:3rem 1.5rem 5rem;
+    border-top:1px solid var(--rule)}
+  .sources h2{font-family:var(--sans);font-size:.78rem;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--ink-faint);font-weight:500;margin:0 0 1.5rem}
+  .sources ol{margin:0;padding-left:1.1rem;font-size:.9rem;line-height:1.7;color:var(--ink-soft)}
+  .sources li{margin-bottom:.7rem}
+  .sources a{color:var(--accent);text-decoration:none;border-bottom:1px solid #e0c4b8}
+
+  .reveal{opacity:0;transform:translateY(14px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.in{opacity:1;transform:none}
+
+  /* ---------- narrow screens: room pins to the top, spotlight stays ---------- */
+  @media (max-width:900px){
+    body{font-size:16px}
+    .hero-panel{padding:0 .4rem;margin:0 1rem}
+    .walk-grid{display:block;padding:0;max-width:none}
+    .stage{position:sticky;top:0;height:auto;display:block;z-index:5;
+      background:var(--paper);padding:.6rem .8rem .4rem;
+      box-shadow:0 6px 14px -10px rgba(28,22,14,.35)}
+    .entry{min-height:78vh;padding:2.5rem 1.5rem;justify-content:flex-start}
+    .entry > *{max-width:var(--measure);margin-left:auto;margin-right:auto;width:100%}
+    .entry h2{font-size:1.7rem}
+    blockquote{margin-left:0;margin-right:0;padding:1.3rem 1.4rem}
+    .beat{margin-top:3.5rem}
+  }
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    .reveal{opacity:1;transform:none;transition:none}
+    .spot{transition:opacity .2s ease}
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#story">Skip to the walkthrough</a>
+
+<header class="hero">
+  <div class="hero-media">
+    <img src="images/00-hero.jpg" alt="A clinic exam room, empty, seen from the doorway.">
+  </div>
+  <div class="hero-frost" aria-hidden="true"></div>
+  <div class="hero-panel">
+    <h1>Standard of Care</h1>
+    <p class="standfirst">A mundane checkup, and the fortune you unwittingly inherited.</p>
+  </div>
+  <p class="scrollcue">scroll to begin</p>
+</header>
+
+<main id="story"></main>
+
+<script>
+/* ------------------------------------------------------------------
+   ENTRY DATA
+
+   spot: {x,y,w,h} as PERCENTAGES of the hero image.
+         Rendered as a soft elliptical spotlight centred on the box.
+         All ten objects are present in the hero render; coordinates
+         were measured from the image. Fine-tune with the preview's
+         spotlight tuner (alt-drag) if any feel off.
+
+   COORDINATES ARE ESTIMATES. Tune them in preview-interactive.html
+   by ALT-CLICKING on the stage image — it prints x/y percentages.
+   ------------------------------------------------------------------ */
+const BEATS = {
+  open: "It's nine in the morning. You squeezed this appointment in between drop-off and coffee. You feel healthy \u2014 but Aunt Sue's diagnosis reminded you that your annual was overdue, so here you are. The paper on the table crinkles when you shift your weight. You could really use that coffee right now.",
+  mid: "She warms the disc against her palm before she puts it on your back, which you have never noticed anyone doing before, and asks you to breathe in. Then again. Then again.",
+  late: "She taps below your knee with a small hammer and watches your leg jump. Almost done. She types for a moment, and a prescription starts printing at the desk."
+};
+
+const ENTRIES = [
+  {
+    station:"The cuff on the wall",
+    title:"The silent number",
+    img:"images/01-cuff.png",
+    alt:"A wall-mounted blood pressure cuff, unfastened, its tube coiled.",
+    spot:{x:54,y:18.5,w:10,h:11.5},
+    quote:"\u201cI suspected something was terribly wrong as soon as I looked at the President.\u201d",
+    cite:"Dr. Howard Bruenn, on examining Franklin Roosevelt, 28 March 1944 — clinical notes published in the <i>Annals of Internal Medicine</i>, 1970",
+    note:"Roosevelt's blood pressure had not been checked since February 1941, when it read 188/105 — because rising pressure with age was considered normal, even necessary. There were no drugs to lower it. Into the 1960s, most physicians believed the number was not a warning but the body doing its job.",
+    status:"ready"
+  },
+  {
+    station:"The scope in its cradle",
+    title:"A light inside a living body",
+    img:"images/02-otoscope.png",
+    alt:"An otoscope and ophthalmoscope seated in a wall-mounted charging cradle.",
+    spot:{x:63,y:16.5,w:9,h:15},
+    quote:"\u201cThe blackness of the pupil seemed to baffle all attempts to pierce it.\u201d",
+    cite:"<a href='https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8863035/'>J. W. Hulke, surgeon, Royal London Ophthalmic Hospital, 1860</a> — on the living eye before the ophthalmoscope",
+    note:"In December 1850, Hermann von Helmholtz became the first person in history to see inside a living human body without cutting it open. He had learned the optics as a schoolboy, working them out under the desk during Latin.",
+    status:"ready"
+  },
+  {
+    station:"The jar of wooden blades",
+    title:"The strangling angel",
+    img:"images/03-jar.png",
+    alt:"A jar of wooden tongue depressors on a counter, its lid resting beside it.",
+    spot:{x:10.5,y:41,w:4.5,h:8.5},
+    quote:"\u201cNothing was more frightful than to come into a home and find the cruel symptoms of diphtheria \u2014 the high temperature, the gasping for breath, the inflamed tonsils and the blue skin, there wasn't much I could do for the patient. Sometimes I cut a hole in the trachea to let them breathe. After that they were in the hands of God.\u201d",
+    cite:"<a href='http://www.mhs.mb.ca/docs/pageant/05/blackkiller.shtml'>Dr. Murrough O'Brien, rural Manitoba</a>, recalling the years before antitoxin (in <i>Saddlebag Surgeon</i>, 1959)",
+    note:"Then came the antitoxin. In Paris in 1894, of 448 children treated with it, 109 died \u2014 at a hospital across the city not yet using it, the rate was more than twice that. O'Brien once rode fifty-six miles through spring flood to reach one girl in the last choking stage; she lived.",
+    status:"ready"
+  },
+  {
+    station:"The stethoscope on the chair",
+    title:"Listening through the chest wall",
+    img:"images/04-stethoscope.png",
+    alt:"A stethoscope coiled on a worn desk.",
+    spot:{x:79,y:64,w:7,h:22},
+    quote:"\u201cI rolled a quire of paper into a kind of cylinder and applied one end of it to the region of the heart and the other to my ear, and was not a little surprised and pleased to find that I could thereby perceive the action of the heart in a manner much more clear and distinct than I had ever been able to do by the immediate application of the ear.\u201d",
+    cite:"<a href='https://archive.org/details/treatiseondiseas00unse'>René Laennec, 1819</a>",
+    note:"On the invention of the stethoscope at the Necker hospital in Paris. Ten years later Laennec was dead of tuberculosis — diagnosed by his own instrument, in his own chest, by his own colleagues. Being able to hear the disease changed nothing; the cure was 118 years away.",
+    status:"ready"
+  },
+  {
+    station:"The light box on the wall",
+    title:"Seeing through the skin",
+    img:"images/05-viewbox.png",
+    alt:"An x-ray view box mounted on the wall, a chest film clipped into it.",
+    spot:{x:37,y:14.5,w:12.5,h:22},
+    quote:"\u201cIf the body were but transparent, so that the eye could trace the course of the blood or the changes of structure, medicine would no longer be a science of deduction, but one of absolute certainty.\u201d",
+    cite:"Oliver Wendell Holmes Sr., physician and essayist, <a href='https://www.gutenberg.org/files/2700/2700-h/2700-h.htm'>Medical Essays</a>. He died in 1894 \u2014 one year before the wish came true.",
+    note:"Röntgen published <a href='https://www.nature.com/articles/053274b0'>his paper</a> in weeks, and the wish was granted. Before it, no one had ever seen inside a living body without cutting it open; fractures were set blind, and a surgeon's hands were the only imaging in the world.",
+    status:"ready"
+  },
+  {
+    station:"Her hands press low on the right of your belly",
+    title:"The disease with no name",
+    img:"images/06-table.png",
+    alt:"The vinyl top of an exam table, its paper crinkled and pushed up at one end.",
+    spot:{x:34,y:36,w:26,h:30},
+    quote:"\u201cThe iliac passion is a disease no less painful than dangerous... When there is reason to suspect a mortification of the guts, this medicine ought not to be tried. In that case it cannot cure the patient, and will only hasten his death.\u201d",
+    cite:"An eighteenth-century domestic medicine manual on the \u201ciliac passion\u201d — the era's remedies, per Wesley's <i>Primitive Physick</i> (1747), included warm flannels, drinking quicksilver, and a live puppy held on the belly",
+    note:"Much of what killed as \u201ciliac passion\u201d was a dying appendix. In 1886 Reginald Fitz reviewed 466 such cases, showed they began in one small organ, and gave the disease its name — appendicitis. Within a generation, the deadliest mystery of the abdomen became the most routine operation in the hospital.",
+    status:"ready"
+  },
+  {
+    station:"The small refrigerator",
+    title:"The summer plague ends",
+    img:"images/09-fridge.png",
+    alt:"A small under-counter refrigerator holding vials and boxes.",
+    spot:{x:4,y:54.5,w:13,h:25.5},
+    quote:"\u201cThere was nothing a parent could do to protect the family.\u201d",
+    cite:"<a href='https://www.npr.org/sections/npr-history-dept/2015/04/10/398515228/defeating-the-disease-that-paralyzed-america'>David Oshinsky</a>, historian of polio, recalling the summer epidemics of his 1950s childhood \u2014 when beaches and pools closed and children were banned from theatres",
+    note:"Then, on 12 April 1955, <a href='https://sph.umich.edu/polio'>a University of Michigan press bulletin</a> began: \u201cThe vaccine works. It is safe, effective, and potent.\u201d Church bells rang, factory whistles blew, and people wept in the street. The vaccine they were celebrating is one of the vials in this refrigerator.",
+    status:"ready"
+  },
+  {
+    station:"Rolling up your sleeve",
+    title:"The wards that emptied",
+    img:"images/08-sharps.png",
+    alt:"A red sharps container.",
+    spot:{x:15.3,y:39,w:6.5,h:9.5},
+    quote:"\u201cLet them die in peace.\u201d",
+    cite:"The prevailing counsel of pediatricians in the 1940s, when childhood leukemia killed nearly every child it touched \u2014 recorded in Siddhartha Mukherjee's <i>The Emperor of All Maladies</i>",
+    note:"Children with cancer were kept in the hospital's farthest wards, comfort the only treatment. Then came Farber's 1948 trial, and everything after it: in the 1960s, about fourteen in every hundred children with acute lymphoblastic leukemia survived five years \u2014 <a href='https://ourworldindata.org/childhood-leukemia-treatment-history'>by the 2010s, ninety-four did</a>. The largest reversal of its kind in the history of medicine, inside a single lifetime.",
+    status:"ready"
+  },
+  {
+    station:"The schedule pinned by the desk",
+    title:"Erased from the calendar",
+    img:"images/09-fridge.png",
+    alt:"An immunization schedule pinned to the wall.",
+    spot:{x:79.5,y:24,w:5.5,h:11},
+    quote:"\u201cThe world and all its peoples have won freedom from smallpox.\u201d",
+    cite:"<a href='https://www.who.int/publications/i/item/WHA33-3'>33rd World Health Assembly, 8 May 1980</a>",
+    note:"Smallpox killed roughly three in ten people it infected, and some three hundred million in the twentieth century alone. It is the only human disease ever eradicated — which is why it is the one disease you will not find anywhere on that schedule.",
+    status:"ready"
+  },
+  {
+    station:"The monitor on the desk",
+    title:"Every library in the room",
+    img:"images/00-hero.jpg",
+    alt:"A computer monitor on the clinic desk.",
+    spot:{x:82.5,y:38.5,w:15,h:22},
+    quote:"\u201cI firmly believe that if the whole materia medica, as now used, could be sunk to the bottom of the sea, it would be all the better for mankind \u2014 and all the worse for the fishes.\u201d",
+    cite:"Oliver Wendell Holmes Sr., \u201cCurrents and Counter-Currents in Medical Science,\u201d 1860 \u2014 in <a href='https://www.gutenberg.org/files/2700/2700-h/2700-h.htm'>Medical Essays</a>",
+    note:"In 1860 he was largely right: most of the pharmacy did nothing, and no one could prove otherwise. What changed is that medicine learned to test itself \u2014 and the record of every trial since, the entire evidence of what actually works, sits behind this screen, indexed since 1879 and free to anyone since 1997.",
+    status:"ready"
+  },
+  {
+    station:"The prescription printing at the desk",
+    title:"The fourteen-year-old who woke up",
+    img:"images/10-printer.png",
+    alt:"A small printer with a sheet of paper part-way out of the slot.",
+    spot:{x:67.5,y:47.5,w:11.5,h:12},
+    quote:"\u201cWonderfully sweet, as if it were imbued with honey or sugar.\u201d",
+    cite:"Thomas Willis, English physician, 1674 \u2014 on the urine of his diabetic patients. The disease took its second name, <i>mellitus</i>, \u201choneyed,\u201d from this observation; for 250 more years the diagnosis remained a death sentence.",
+    note:"The sheet coming out of the printer is a prescription, and for millions of people the word on it is insulin. Before 1922, a child diagnosed with diabetes was starved to buy months; Leonard Thompson was fourteen when he became the first person to receive it. <a href='https://insulin.library.utoronto.ca/'>Elizabeth Hughes wrote home to her mother from Toronto that summer.</a>",
+    status:"ready"
+  }
+];
+
+/* ---------- build ---------- */
+const main = document.getElementById('story');
+
+function beat(text){
+  const p = document.createElement('p');
+  p.className = 'beat reveal';
+  p.textContent = text;
+  return p;
+}
+main.appendChild(beat(BEATS.open));
+
+const walk = document.createElement('div');
+walk.className = 'walk';
+walk.innerHTML =
+  '<div class="walk-grid">' +
+    '<div class="stage"><div>' +
+      '<div class="stage-inner">' +
+        '<img src="images/00-hero.jpg" alt="The exam room." id="stage-hero">' +
+        '<div class="veil" id="veil-a"></div>' +
+        '<div class="veil" id="veil-b"></div>' +
+      '</div>' +
+    '</div></div>' +
+    '<div class="entries" id="entries"></div>' +
+  '</div>';
+main.appendChild(walk);
+
+const entriesEl = document.getElementById('entries');
+ENTRIES.forEach(function(e, i){
+  if (i === 3) entriesEl.appendChild(beat(BEATS.mid));
+  if (i === 9) entriesEl.appendChild(beat(BEATS.late));
+  const sec = document.createElement('section');
+  sec.className = 'entry reveal';
+  sec.dataset.idx = i;
+  sec.innerHTML =
+    '<p class="entry-station">' + e.station + '</p>' +
+    '<h2>' + e.title + '</h2>' +
+    '<figure><img src="' + e.img + '" alt="' + e.alt + '" loading="lazy" decoding="async"></figure>' +
+    '<blockquote>' + (e.status === 'tk' ? '<span class="tk">NEEDS SOURCING</span> ' : '') + e.quote + '</blockquote>' +
+    '<p class="attrib">' + e.cite + '</p>' +
+    (e.noteOpen
+      ? '<p class="note">' + e.note + '</p>'
+      : '<details class="note-d"><summary>context</summary><p class="note">' + e.note + '</p></details>');
+  entriesEl.appendChild(sec);
+});
+
+const closing = document.createElement('div');
+closing.className = 'closing reveal';
+closing.innerHTML =
+  '<p>You put your coat back on. Everything looks fine, she says, and you believe her, because everything usually does.</p>' +
+  '<p>It was a routine checkup. Twenty unremarkable minutes: a listen through your chest, a light in your eye, a check for a disease that once emptied children\u2019s wards, a prescription that a century ago would have been a miracle.</p>' +
+  '<p>Clear for another year, you rush out for that latte. By the time it\u2019s in your hand, the room is forgotten. You traded twenty minutes for care beyond any king, president, or poet who ever lived.</p>';
+main.appendChild(closing);
+
+const src = document.createElement('section');
+src.className = 'sources reveal';
+src.innerHTML =
+  '<h2>Sources</h2><ol>' +
+  '<li>Laennec, R.T.H. <i>A Treatise on the Diseases of the Chest and on Mediate Auscultation</i>, trans. John Forbes, 2nd ed. London: T. and G. Underwood, 1827. Introduction, pp. 4\u20135. <a href="https://archive.org/details/treatiseondiseas00unse">Archive.org</a></li>' +
+  '<li>Koenigsberger, Leo. <i>Hermann von Helmholtz</i>, trans. Frances A. Welby. Oxford: Clarendon Press, 1906, pp. 73\u201374. <a href="https://archive.org/details/hermannvonhelmho00koenrich">Archive.org</a></li>' +
+  '<li>Hulke, J.W. "The Ophthalmoscope and Its Use." 1860. <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8863035/">PMC</a></li>' +
+  '<li>Tyre, Robert. <i>Saddlebag Surgeon</i> (1959), excerpted as "The Black Killer," <i>Manitoba Pageant</i> 5:1. <a href="http://www.mhs.mb.ca/docs/pageant/05/blackkiller.shtml">Manitoba Historical Society</a></li>' +
+  '<li>Wesley, John. <i>Primitive Physick</i> (1747), "The Iliac Passion." <a href="https://archive.org/details/primitivephysico00wesl">Archive.org</a></li>' +
+  '<li>R\u00f6ntgen, W.C. "On a New Kind of Rays," trans. Arthur Stanton. <i>Nature</i> 53 (23 January 1896): 274\u2013276. <a href="https://www.nature.com/articles/053274b0">Nature</a></li>' +
+  '<li>Fitz, Reginald H. "Perforating inflammation of the vermiform appendix." Philadelphia: Wm. J. Dornan, 1886.</li>' +
+  '<li>University of Michigan Information and News Service, press bulletin, 12 April 1955. <a href="https://sph.umich.edu/polio">U-M School of Public Health</a></li>' +
+  '<li>Resolution WHA33.3, 33rd World Health Assembly, 8 May 1980. <a href="https://www.who.int/publications/i/item/WHA33-3">WHO</a></li>' +
+  '<li>Oshinsky, David. <i>Polio: An American Story</i> (2005); interview, <a href="https://www.npr.org/sections/npr-history-dept/2015/04/10/398515228/defeating-the-disease-that-paralyzed-america">NPR, 2015</a>.</li>' +
+  '<li>Mukherjee, Siddhartha. <i>The Emperor of All Maladies</i> (2010).</li>' +
+  '<li>Children\u2019s Oncology Group trial data, via <a href="https://ourworldindata.org/childhood-leukemia-treatment-history">Our World in Data</a>.</li>' +
+  '<li>Bruenn, Howard G. "Clinical notes on the illness and death of President Franklin D. Roosevelt." <i>Annals of Internal Medicine</i> 72 (1970): 579\u2013591.</li>' +
+  '</ol>';
+main.appendChild(src);
+
+/* ---------- spotlight driver: soft veils, crossfaded ---------- */
+const veils = [document.getElementById('veil-a'), document.getElementById('veil-b')];
+let active = -1, vi = 0;
+
+function veilGradient(s){
+  /* ellipse centred on the object, transparent core feathering into the dim */
+  const cx = s.x + s.w/2, cy = s.y + s.h/2;
+  const rx = Math.max(s.w * 0.95, 6), ry = Math.max(s.h * 0.95, 6);
+  return 'radial-gradient(ellipse ' + rx + '% ' + ry + '% at ' + cx + '% ' + cy + '%, ' +
+         'rgba(28,22,14,0) 0%, rgba(28,22,14,0) 46%, var(--dim) 100%)';
+}
+
+function setSpot(s){
+  const next = veils[1 - vi];
+  next.style.background = veilGradient(s);
+  next.classList.add('on');
+  veils[vi].classList.remove('on');
+  vi = 1 - vi;
+}
+window.__setSpot = setSpot; /* used by the preview tuner */
+
+function show(i){
+  if (i === active) return;
+  active = i;
+  const e = ENTRIES[i];
+  if (!e) return;
+  if (e.spot) setSpot(e.spot);
+}
+
+const stageObs = new IntersectionObserver(function(es){
+  es.forEach(function(en){ if (en.isIntersecting) show(+en.target.dataset.idx); });
+}, { rootMargin: '-45% 0px -45% 0px', threshold: 0 });
+document.querySelectorAll('.entry').forEach(function(el){ stageObs.observe(el); });
+
+/* ---------- reveal ---------- */
+const io = new IntersectionObserver(function(es){
+  es.forEach(function(en){
+    if (en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); }
+  });
+}, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
+document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+</script>
+</body>
+</html>
