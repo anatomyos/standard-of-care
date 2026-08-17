@@ -1,6 +1,7 @@
 # standard-of-care
 A scroll-driven essay: The mundane checkup, and the fortune you unwittingly inherited.
-    *inspired by https://ordinaryabundance.com/
+   
+    **inspired by https://ordinaryabundance.com/
 
 ## Files
 
