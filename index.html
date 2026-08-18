@@ -180,7 +180,7 @@
    by ALT-CLICKING on the stage image — it prints x/y percentages.
    ------------------------------------------------------------------ */
 const BEATS = {
-  open: "It's nine in the morning. You squeezed this appointment in between drop-off and coffee. You feel healthy \u2014 but Aunt Sue's diagnosis reminded you that your annual was overdue, so here you are. The paper on the table crinkles when you shift your weight. You could really use that coffee right now.",
+  open: "It's nine in the morning. You squeezed this appointment in between drop-off and coffee. You feel healthy... but Aunt Sue's diagnosis reminded you that your annual was overdue, so here you are. The paper on the table crinkles when you shift your weight. You could really use that coffee right now.",
   mid: "She warms the disc against her palm before she puts it on your back, which you have never noticed anyone doing before, and asks you to breathe in. Then again. Then again.",
   late: "She taps below your knee with a small hammer and watches your leg jump. Almost done. She types for a moment, and a prescription starts printing at the desk."
 };
@@ -205,7 +205,7 @@ const ENTRIES = [
     spot:{x:63,y:16.5,w:9,h:15},
     quote:"\u201cThe blackness of the pupil seemed to baffle all attempts to pierce it.\u201d",
     cite:"<a href='https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8863035/'>J. W. Hulke, surgeon, Royal London Ophthalmic Hospital, 1860</a> — on the living eye before the ophthalmoscope",
-    note:"In December 1850, Hermann von Helmholtz became the first person in history to see inside a living human body without cutting it open. He had learned the optics as a schoolboy, working them out under the desk during Latin.",
+    note:"In December 1850, Hermann von Helmholtz became the first person in history to see inside a living human eye without cutting it open. He had learned the optics as a schoolboy, under the desk during Latin.",
     status:"ready"
   },
   {
@@ -227,7 +227,7 @@ const ENTRIES = [
     spot:{x:79,y:64,w:7,h:22},
     quote:"\u201cI rolled a quire of paper into a kind of cylinder and applied one end of it to the region of the heart and the other to my ear, and was not a little surprised and pleased to find that I could thereby perceive the action of the heart in a manner much more clear and distinct than I had ever been able to do by the immediate application of the ear.\u201d",
     cite:"<a href='https://archive.org/details/treatiseondiseas00unse'>René Laennec, 1819</a>",
-    note:"On the invention of the stethoscope at the Necker hospital in Paris. Ten years later Laennec was dead of tuberculosis — diagnosed by his own instrument, in his own chest, by his own colleagues. Being able to hear the disease changed nothing; the cure was 118 years away.",
+    note:"On the invention of the stethoscope at the Necker hospital in Paris. Ten years later Laennec passed from tuberculosis, diagnosed by his own instrument, in his own chest, by his own colleagues. The stethoscope is still one of the most used frontline instruments for diagnosising lung diseases today",
     status:"ready"
   },
   {
@@ -238,7 +238,7 @@ const ENTRIES = [
     spot:{x:37,y:14.5,w:12.5,h:22},
     quote:"\u201cIf the body were but transparent, so that the eye could trace the course of the blood or the changes of structure, medicine would no longer be a science of deduction, but one of absolute certainty.\u201d",
     cite:"Oliver Wendell Holmes Sr., physician and essayist, <a href='https://www.gutenberg.org/files/2700/2700-h/2700-h.htm'>Medical Essays</a>. He died in 1894 \u2014 one year before the wish came true.",
-    note:"Röntgen published <a href='https://www.nature.com/articles/053274b0'>his paper</a> in weeks, and the wish was granted. Before it, no one had ever seen inside a living body without cutting it open; fractures were set blind, and a surgeon's hands were the only imaging in the world.",
+    note:"Röntgen published <a href='https://www.nature.com/articles/053274b0'>his paper</a> in weeks, and the wish was granted. Before it, no one had ever seen inside a living body without cutting it open; fractures were set blind, and surgeons operated without visible internal anatomy beforehand.",
     status:"ready"
   },
   {
@@ -264,7 +264,7 @@ const ENTRIES = [
     status:"ready"
   },
   {
-    station:"Rolling up your sleeve",
+    station:"The sharps container",
     title:"The wards that emptied",
     img:"images/08-sharps.png",
     alt:"A red sharps container.",
@@ -275,7 +275,7 @@ const ENTRIES = [
     status:"ready"
   },
   {
-    station:"The schedule pinned by the desk",
+    station:"The vaccine schedule pinned by the desk",
     title:"Erased from the calendar",
     img:"images/09-fridge.png",
     alt:"An immunization schedule pinned to the wall.",
@@ -358,8 +358,8 @@ const closing = document.createElement('div');
 closing.className = 'closing reveal';
 closing.innerHTML =
   '<p>You put your coat back on. Everything looks fine, she says, and you believe her, because everything usually does.</p>' +
-  '<p>It was a routine checkup. Twenty unremarkable minutes: a listen through your chest, a light in your eye, a check for a disease that once emptied children\u2019s wards, a prescription that a century ago would have been a miracle.</p>' +
-  '<p>Clear for another year, you rush out for that latte. By the time it\u2019s in your hand, the room is forgotten. You traded twenty minutes for care beyond any king, president, or poet who ever lived.</p>';
+  '<p>It was a routine checkup. Twenty unremarkable minutes. She had inspected your eye, listened to your heart, and checked you for diseases that used to empty whole wards of children.</p>' +
+  '<p>Clear for another year, you rush out for that latte. By the time it\u2019s in your hand, you\u2019ve forgotten that you traded twenty short minutes for care beyond what any past king, president, or poet could ever receive.</p>';
 main.appendChild(closing);
 
 const src = document.createElement('section');
